@@ -65,15 +65,15 @@ int main(void){
 
 info_t *readFile(int *n){
 	FILE *fp;
-	char name[L],fin[L];
+	char name[L];//fin[L];
 	int i,j,id,num_laps,lap_times;
 	info_t *athlete;
 
 
 
-	fprintf(stdout,"input file name :\n");
-	scanf("%s",fin);
-	fp=fopen(fin,"r");
+	//fprintf(stdout,"input file name :\n");
+	//scanf("%s",fin);
+	fp=fopen("input.txt","r");
 
 	if(fp==NULL){
 		printf("\n ERROR, file is empty!\n");
@@ -124,45 +124,48 @@ void infolist(info_t *ath,int n){
 	int i;
 	fprintf(stdout,"number of athletes:%d\n",n);
 	for(i=0;i<n;i++){
-	fprint(stdout,"Name : %s	 #id = %d   #Laps=%d\n",ath[i].name,&ath[i].id,&ath[i].num_lap);
+	fprintf(stdout,"Name : %s	 #id = %d   #Laps=%d\n",ath[i].name,ath[i].id,ath[i].num_lap);
 	}
 
 }
 void printBest(info_t *ath,int n){
 	float best;
-	int i,index;
+	int i,index,j;
 	best=ath[0].avg;
 	for(i=1;i<n;i++){
 		if(ath[i].avg<best){
 			best=ath[i].avg;
 			index=i++;
 		}
-
-	fprintf(stdout,"Name : %s  #id : %d  #Laps=%d  BEST AVG=%d \n",ath[index].name,ath[index].id,ath[index].num_lap,ath[index].avg);
 	}
+fprintf(stdout,"Name : %s  #id : %d  #Laps=%d \n",ath[index].name,ath[index].id,ath[index].num_lap);
+fprintf(stdout,"Times :");
+	for(j=0;j<ath[index].num_lap;j++){
+		fprintf(stdout," %f ",ath[index].time_lap[j]);
+	}
+	fprintf(stdout," Best Average : %f",ath[index].avg);
 }
 void details (info_t *ath , int n){
 
 	char name[L];
 	int i,j;
-	int flag=0;
+
 
 	scanf("%s",name);
 
 	for(i=0;i<n;i++){
 		if (strcmp(name,ath[i].name)==0){
-			fprintf(stdout,"#id : %d  #Laps=%d #Times: %d \n",ath[i].id,ath[i].num_lap,ath[i].time_lap);
-			for(j=0;j<ath[i].time_lap;j++){
-				fprintf(stdout,"%f",ath[i].time_lap[j]);
+			printf(" id : %d  Laps=%d \n",ath[i].id,ath[i].num_lap);
+			printf(" Times : ");
+			for(j=0;j<ath[i].num_lap;j++){
+				fprintf(stdout," %f ",ath[i].time_lap[j]);
 			}
-			flag=1;
-	}
-	}
-	if(!flag){
-		fprintf(stdout,"name doesn't exist!\n");
-	}
+printf("\n");
+		}
 
-	}
+}
+}
+
 
 
 
