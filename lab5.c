@@ -14,8 +14,8 @@
 
 typedef struct info{
 	char name[L];
-	int id,i;
-	float num_lap;
+	int id;
+	int num_lap;
 	float avg;
 	float *time_lap;//we dont know how many it should be an array
 }info_t;
@@ -57,6 +57,7 @@ int main(void){
 	for(i=0;i<n;i++){
 		free(athletes[i].time_lap);
 	}
+	free(athletes);
 
 
 	fprintf(stdout,"End of Program \n");
@@ -66,7 +67,8 @@ int main(void){
 info_t *readFile(int *n){
 	FILE *fp;
 	char name[L];//fin[L];
-	int i,j,id,num_laps,lap_times;
+	int i,j,id,num_laps;
+	float lap_times;
 	info_t *athlete;
 
 
@@ -92,7 +94,7 @@ info_t *readFile(int *n){
 	while (i<*n && fscanf(fp,"%s %d %d",name,&id,&num_laps)){
 		strcpy(name,athlete[i].name);
 		athlete[i].id=id;
-		athlete->num_lap=num_laps;
+		athlete[i].num_lap=num_laps;
 
 		//allocating our array
 		athlete[i].time_lap=(float *)malloc(athlete[i].num_lap*sizeof(float));
@@ -154,7 +156,7 @@ void details (info_t *ath , int n){
 	scanf("%s",name);
 
 	for(i=0;i<n;i++){
-		if (strcmp(name,ath[i].name)==0){
+		if (strcmp(ath[i].name,name)==0){
 			printf(" id : %d  Laps=%d \n",ath[i].id,ath[i].num_lap);
 			printf(" Times : ");
 			for(j=0;j<ath[i].num_lap;j++){
